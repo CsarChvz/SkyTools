@@ -14,6 +14,6 @@ class EditProfile(FlaskForm):
     about_me = TextAreaField('Acerca de mi')
     submite = SubmitField('Enter')
 
-# class PostForm(FlaskForm):
-#     body = TextAreaField("¿Qué tienes en tu mente?", validators=[DataRequired()])
-#     submit = SubmitField('Submit')
+    # class PostForm(FlaskForm):
+    #     body = TextAreaField("¿Qué tienes en tu mente?", validators=[DataRequired()])
+    #     submit = SubmitField('Submit')

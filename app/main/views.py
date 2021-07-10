@@ -8,14 +8,14 @@ from .. import db
 from ..models import Permission, User
 from ..email import send_email
 from . import main
-from .forms import NameForm, EditProfile, PostForm
+from .forms import NameForm, EditProfile
 from datetime import datetime
 from flask_login.utils import login_required, login_user, logout_user, current_user
 
 
 @main.route('/', methods=['GET', 'POST'])
 def index():
-    return render_template('index.html', form=form)
+    return render_template('index.html')
 
 @main.route('/askName', methods=['GET', 'POST'])
 def askName():
