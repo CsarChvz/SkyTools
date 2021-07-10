@@ -5,7 +5,7 @@ from flask import render_template, session, redirect, url_for, current_app
 from flask.globals import request
 from flask.helpers import flash
 from .. import db
-from ..models import Permission, Post, User
+from ..models import Permission, User
 from ..email import send_email
 from . import main
 from .forms import NameForm, EditProfile, PostForm
@@ -55,7 +55,7 @@ def edit_profile():
     form.about_me.data = current_user.about_me
     return render_template('edit_profile.html', form=form, user=user)
 
-@main.route('/post/<int:id>')
-def post(id):
-    post = Post.query.get_or_404(id)
-    return render_template('post.html', posts=[post])
+# @main.route('/post/<int:id>')
+# def post(id):
+#     post = Post.query.get_or_404(id)
+#     return render_template('post.html', posts=[post])
