@@ -13,7 +13,3 @@ class EditProfile(FlaskForm):
     location = StringField('Lugar', validators=[Length(0, 64)])
     about_me = TextAreaField('Acerca de mi')
     submite = SubmitField('Enter')
-
-    # class PostForm(FlaskForm):
-    #     body = TextAreaField("¿Qué tienes en tu mente?", validators=[DataRequired()])
-    #     submit = SubmitField('Submit')
