@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% import "_macros.html" as macros %}
+
+{% block title %} <title> Flasky - {{ user.username|capitalize }} </title>{% endblock %}
+
+{% block page_content %}
+<div class="page-header" >
+    <div class="container" style="color: white;">
+        <img class="img-rounded profile-thumbnail" src="{{ user.gravatar(size=256) }}">
+        <div class="profile-header" style="display: inline-block;">
+            <div style="margin-left: 2em; display: flexbox;">
+                <h1>{{ user.username }}</h1>
+                {% if user.name or user.location %}
+                <p>
+                    {% if user.name %}{{ user.name }}{% endif %}
+                    {% if user.location %}
+                        From <a href="http://maps.google.com/?q={{ user.location }}">
+                            {{ user.location }}
+                        </a>
+                    {% endif %}
+                </p>
+                {% endif %}
+                {% if current_user.is_administrator() %}
+                    <p><a href="mailto:{{ user.email }}">{{ user.email }}</a>{{ user.email }}</p>
+                {% endif %}
+                {% if user.about_me %}<p>{{ user.about_me }}</p>{% endif %}
+
+                {% if user == current_user %}
+                <a href="{{ url_for('main.edit_profile') }}" class="btn btn-default" style="background-color: white;">
+                    Editar Perfil
+                </a>
+                {% endif%}
+        </div>
+    </div>
+</div>
+<div class="container" style="margin-top: 2em;">
+    <h2 style="color: white; display: flex; justify-content: center;">Posts by {{ user.username }}</h2>
+</div>
+{% include '_posts.html' %}
+{% if pagination %}
+<div class="pagination">
+    {{ macros.pagination_widget(pagination, '.index') }}
+</div>
+{% endif %}
+{% endblock %}
