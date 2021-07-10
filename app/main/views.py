@@ -15,18 +15,7 @@ from flask_login.utils import login_required, login_user, logout_user, current_u
 
 @main.route('/', methods=['GET', 'POST'])
 def index():
-    form = PostForm()
-    if current_user.can(Permission.WRITE) and form.validate_on_submit():
-        post = Post(body=form.body.data, author=current_user._get_current_object())
-        db.session.add(post)
-        db.session.commit()
-        return redirect(url_for('main.index'))
-    page = request.args.get('page', 1, type=int)
-    pagination = Post.query.paginate(
-        page, per_page=current_app.config['FLASKY_POSTS_PER_PAGE'], error_out=False
-    )
-    posts = pagination.items
-    return render_template('index.html', form=form, posts=posts, pagination=pagination)
+    return render_template('index.html', form=form)
 
 @main.route('/askName', methods=['GET', 'POST'])
 def askName():
@@ -44,8 +33,7 @@ def user(username):
     user = User.query.filter_by(username=username).first()
     if user is None:
         return redirect(url_for('404.html'), 404)
-    posts = user.posts.all()
-    return render_template('profile.html', posts=posts, user=user)
+    return render_template('profile.html', user=user)
 
 
 @main.route('/editar-perfil', methods=['GET', 'POST'])
