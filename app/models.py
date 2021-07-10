@@ -166,7 +166,7 @@ class User(UserMixin, db.Model):
     #Si se intenta leer no se va a poder porque va a dar un error
     @property
     def password(self):
-        raise AttribuateError('password is not a readable attribute')
+        raise AttributeError('password is not a readable attribute')
     
     #Entonces cuando se establece o se pone un valor en el atributo, se da la siguiente funcion
     @password.setter
