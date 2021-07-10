@@ -32,7 +32,7 @@ def askName():
 def user(username):
     user = User.query.filter_by(username=username).first()
     if user is None:
-        return redirect(url_for('404.html'), 404)
+        return render_template('errorHandlers/404.html')
     return render_template('profile.html', user=user)
 
 
