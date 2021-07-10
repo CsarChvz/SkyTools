@@ -15,10 +15,4 @@
         {% endif %}
     </div>
 </div>
-{% include '_posts.html' %}
-{% if pagination %}
-<div class="pagination container" style="justify-content: center; ">
-    {{ macros.pagination_widget(pagination, '.index') }}
-</div>
-{% endif %}
 {% endblock %}
