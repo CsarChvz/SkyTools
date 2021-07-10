@@ -84,12 +84,6 @@ class Role(db.Model):
     def is_administrator(self):
         return self.can(Permission.ADMIN)
 
-class Follow(db.Model):
-    __tablename__ = 'follows'
-    follower_id = db.Column(db.Integer, db.ForeignKey('users.id'),\
-                            primary_key=True)
-    followed_id = db.Column(db.Integer, db.ForeignKey('users.id'),\
-                            primary_key=True)
 class User(UserMixin, db.Model):
     __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)
