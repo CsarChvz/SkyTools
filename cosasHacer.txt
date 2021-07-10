@@ -1,2 +1,2 @@
-#Eliminar la todo lo relacionado a post que se visual
+#Eliminar la todo lo relacionado a post que se visual - DOne
 
