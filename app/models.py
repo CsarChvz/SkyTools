@@ -92,10 +92,7 @@ class User(UserMixin, db.Model):
     name = db.Column(db.String(64))
     location = db.Column(db.String(64))
     about_me = db.Column(db.Text())
-    #member_since = db.Column(db.DateTime(), default=datetime.utcnow)
-    #last_seen = db.Column(db.DateTime(), default=datetime.utcnow)
     avatar_hash = db.Column(db.String(32))
-    # posts = db.relationship('Post', backref='author', lazy='dynamic')
 
     def __init__(self, **kwargs):
         super(User, self).__init__(**kwargs)
@@ -197,23 +194,3 @@ login_manager.anonymous_user = AnonymousUser
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
-
-# class Post(db.Model):
-
-#     __tablename__ = 'posts'
-#     id = db.Column(db.Integer, primary_key=True)
-#     body = db.Column(db.Text)
-#     #timestamp = db.Column(db.DateTime(timezone=True), index=True, default=datetime.utcnow)
-#     author_id = db.Column(db.Integer, db.ForeignKey('users.id'))
-#     body_html = db.Column(db.Text)
-
-
-#     @staticmethod
-#     def on_changed_body(target, value, oldvalue, initiator):
-#         allowed_tags = ['a', 'abbr', 'acronym', 'b', 'blockquote', 'code', 'em', 'i', 'li', 'ol', 'pre', 'strong', 'ul', 'h1', 'h2', 'h3', 'p']
-#         target.body_html = bleach.linkify(bleach.clean(
-#             markdown(value, output_format='html'), tags=allowed_tags,\
-#              strip=True))
-
-# db.event.listen(Post.body, 'set', Post.on_changed_body)
-
