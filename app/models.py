@@ -3,7 +3,6 @@ from operator import index
 from re import S
 import re
 from flask.globals import request
-
 from sqlalchemy.orm import backref, defaultload
 from . import db
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -13,7 +12,6 @@ from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 from flask import current_app
 from . import db
 from datetime import datetime, timezone
-
 import hashlib
 from markdown import markdown
 import bleach
