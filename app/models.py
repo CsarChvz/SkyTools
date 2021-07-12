@@ -1,6 +1,6 @@
 from enum import unique
 from operator import index
-from re import S
+from re import S, T
 import re
 from flask.globals import request
 from sqlalchemy.orm import backref, defaultload
@@ -16,8 +16,9 @@ import hashlib
 from markdown import markdown
 import bleach
 
-class User(UserMixin, db.Model):
-    __tablename__ = 'users'
+class User(db.Model, UserMixin ):
+
+    __tablename__ = 'Users'
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(64), unique=True, index=True)
     username = db.Column(db.String(64), unique=True, index=True)
@@ -74,6 +75,7 @@ class User(UserMixin, db.Model):
     def __repr__(self):
         return '<User %r>' % self.username
 
+
 class AnonymousUser(AnonymousUserMixin):
 
     def can(self, permissions):
@@ -81,7 +83,7 @@ class AnonymousUser(AnonymousUserMixin):
 
     def is_administrator(self):
         return False
-
+        
 login_manager.anonymous_user = AnonymousUser
 @login_manager.user_loader
 def load_user(user_id):
