@@ -20,9 +20,6 @@
                     {% endif %}
                 </p>
                 {% endif %}
-                {% if current_user.is_administrator() %}
-                    <p><a href="mailto:{{ user.email }}">{{ user.email }}</a>{{ user.email }}</p>
-                {% endif %}
                 {% if user.about_me %}<p>{{ user.about_me }}</p>{% endif %}
 
                 {% if user == current_user %}
