@@ -16,13 +16,17 @@ import hashlib
 from markdown import markdown
 import bleach
 
-class User(db.Model, UserMixin ):
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
 
-    __tablename__ = 'Users'
+class User(db.Model, UserMixin):
+
     id = db.Column(db.Integer, primary_key=True)
-    email = db.Column(db.String(64), unique=True, index=True)
-    username = db.Column(db.String(64), unique=True, index=True)
+    username = db.Column(db.String(20), unique=True, nullable=True)
+    email = db.Column(db.String(120), unique=True, nullable=False)
     password_hash = db.Column(db.String(128))
+    image_profile = db.Column(db.String(20), unique=False, default='default.jpg')
     name = db.Column(db.String(64))
     location = db.Column(db.String(64))
     about_me = db.Column(db.Text())
@@ -75,16 +79,37 @@ class User(db.Model, UserMixin ):
     def __repr__(self):
         return '<User %r>' % self.username
 
+class Tool(db.Model):
 
-class AnonymousUser(AnonymousUserMixin):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(30), unique=False, nullable=False)
+    link = db.Column(db.String(220), unique=False, nullable=False)
+    category = db.Column(db.String(30), unique=False, nullable=False)
+    category = db.Column(db.Integer, db.ForeignKey('category.id'))
+    image_tool = db.Column(db.String(20), unique=False, nullable=False)
+    tool = db.relationship('UserTool', backref='user_tool')
+    image_preview = db.Column(db.String(20), unique=False, nullable=False)
+    descripcion = db.Column(db.String(1000), unique=False, nullable=False)
+    type_tool = db.Column(db.String(20), unique=False, nullable=False)
 
-    def can(self, permissions):
-        return False
 
-    def is_administrator(self):
-        return False
-        
-login_manager.anonymous_user = AnonymousUser
-@login_manager.user_loader
-def load_user(user_id):
-    return User.query.get(int(user_id))
+class UserTool(db.Model):
+
+    id = db.Column(db.Integer, primary_key=True)
+    users_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    tool_id = db.Column(db.Integer, db.ForeignKey('tool.id'))
+
+class Category(db.Model):
+
+    id = db.Column(db.Integer, primary_key=True)
+    category_name = db.Column(db.String(20), unique=True, nullable=False)
+    image_category = db.Column(db.String(30), unique=False, nullable=True)
+    type_category_id = db.Column(db.Integer, db.ForeignKey('type.id'))
+    url_for_category = db.Column(db.String(30), unique=True, nullable=True)
+    category_id = db.relationship('Tool', backref='category_name')
+
+class Type(db.Model):
+
+    id = db.Column(db.Integer, primary_key=True)
+    name_type = db.Column(db.String(30), unique=True, nullable=False)
+    type_ca = db.relationship('Category', backref='type_ca')
