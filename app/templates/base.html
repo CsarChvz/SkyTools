@@ -36,9 +36,9 @@ Flasky
                     <li class="nav-item">
                         <a class="btn nav-link " href="{{ url_for('main.user', username=current_user.username) }}">Profile</a>
                     </li>
-                    <a class="btn nav-link" href="{{ url_for('main.edit_profile') }}">
+                    <!-- <a class="btn nav-link" href="{{ url_for('main.edit_profile') }}">
                         Edit Profile
-                    </a>
+                    </a> -->
                     {% endif %}
                     <!-- <li class="nav-item">
                         <a class="nav-link disabled" href="#">Disabled</a>
@@ -46,8 +46,17 @@ Flasky
                 </ul>
                 <div class="navbar-nav">
                     {% if current_user.is_authenticated %}
-                        <a class="nav-item nav-link btn" href="{{ url_for('auth.logout') }}">Log out</a>
-                        <a class="nav-item nav-link btn" href="#">Account</a>
+                        <!-- <a class="nav-item nav-link btn" href="{{ url_for('auth.logout') }}">Log out</a> -->
+                        <li class="nav-item dropdown nav-item btn">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: transparent !important;">
+                                <img src="{{ current_user.gravatar(size=25) }}" style="margin-right: 8px; border-radius: 5px;">Account
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" style="background-color: transparent;">
+                              <a class="nav-item nav-link btn" href="#">Change email</a>
+                              <a class="nav-item nav-link btn" href="#">Change Password</a>
+                              <a class="nav-item nav-link btn" href="{{ url_for('auth.logout') }}">Log out</a>
+                            </div>
+                          </li>
                     {% else %}
                         <a class="nav-item nav-link btn" href="{{ url_for('auth.login') }}">Log in</a>
                         <a class="nav-item nav-link btn" href="{{ url_for('auth.register') }}">Register</a>
