@@ -12,7 +12,12 @@ from .forms import NameForm, EditProfile
 from datetime import datetime
 from flask_login.utils import login_required, login_user, logout_user, current_user
 
-
+@main.before_request
+def before_request():
+    endpoint = request.endpoint
+    endpoint=endpoint[5:]
+    session['ruta']= endpoint
+    
 @main.route('/', methods=['GET', 'POST'])
 def index():
     return render_template('index.html')
@@ -59,3 +64,7 @@ def edit_profile():
 # def post(id):
 #     post = Post.query.get_or_404(id)
 #     return render_template('post.html', posts=[post])
+
+@main.route('/prueba')
+def prueba():
+    return render_template('prueba.html')
