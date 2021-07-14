@@ -23,10 +23,9 @@ def load_user(user_id):
 class User(db.Model, UserMixin):
 
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(20), unique=True, nullable=True)
     email = db.Column(db.String(120), unique=True, nullable=False)
+    username = db.Column(db.String(20), unique=True, nullable=True)
     password_hash = db.Column(db.String(128))
-    image_profile = db.Column(db.String(20), unique=False, default='default.jpg')
     name = db.Column(db.String(64))
     location = db.Column(db.String(64))
     about_me = db.Column(db.Text())
